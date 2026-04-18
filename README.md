@@ -73,6 +73,10 @@ WaterNav/
 │   ├── evaluate.py                # Compute and print evaluation metrics
 │   └── test_synthetic.py          # Synthetic validation (43/43 tests pass)
 │
+├── docs/
+│   ├── comparison_experiment_requirements.txt  # RAL-style metrics & baseline plan (EN)
+│   └── metrics_summary_B1_B7.csv               # Example summary table for B1–B7
+│
 ├── environment.yml                # Conda environment definition
 ├── requirements.txt               # pip-compatible dependency list
 └── pyproject.toml                 # Package build metadata

@@ -1,0 +1,68 @@
+IEEE RAL — Experimental Design Summary
+Evaluation Metrics and Comparison Protocol (aligned with the paper’s positioning)
+
+One-line positioning: This work addresses continuous absolute localization of a UAV image sequence against a georeferenced satellite map under GNSS-denied or GNSS-degraded conditions. The core question is how temporal priors constrain local observations in texture-degraded segments so that long-horizon tracking is formed and maintained.
+
+-------------------------------------------------------------------------------
+1. Recommended primary evaluation metrics
+-------------------------------------------------------------------------------
+The main paper should retain four core metrics, covering (i) continuous tracking, (ii) accuracy on valid segments, (iii) failure behaviour, and (iv) longest uninterrupted lock. This aligns with common community error / success definitions while directly serving the continuous-localization narrative.
+
+Metric              Definition / role
+-------------------------------------------------------------------------------
+CTLR@25m            Fraction of the full trajectory length for which error stays below 25 m (valid tracking). Prefer path length over frame count. Primary metric for long-horizon lock; answers whether the method “keeps tracking” through degraded segments. → Main table.
+
+MLE_valid           Mean localization error computed only on non-drift segments. Aligns with common MLE usage; answers “how accurate once lock is achieved”. → Main table.
+
+(Additional metrics such as drift-event rate and LCLR@25m can appear in the main table as in the original plan; keep definitions consistent with the submission template.)
+
+-------------------------------------------------------------------------------
+2. Recommended comparison structure
+-------------------------------------------------------------------------------
+Split into three tiers: external system-level baselines, controlled counterparts, and ablations. External baselines answer whether “standard pipelines” complete the task; controlled comparisons isolate whether gains come from the core mechanism; ablations explain internal components.
+
+2.1 External / system-level baselines (recommended for the main table)
+
+ID   Method name                         Definition / role
+-------------------------------------------------------------------------------
+B1   Retrieval-Only (AnyLoc)             Each frame: global retrieval only; position from top-1 candidate centre or top-k weighted centre; no local geometric matching; no temporal prior. Lower bound for absolute localization; shows retrieval alone is insufficient for continuous lock.
+
+B2   Frame-SparseMatch (AnyLoc + XFeat + RANSAC)   Per frame: global retrieval + local sparse / texture matching + geometric verification; no temporal prior. Standard per-frame absolute localization; shows gains are not only from a stronger matcher.
+
+B3   Frame-DenseMatch (AnyLoc + RoMa + RANSAC)     Same as B2 but with a stronger dense local matcher. Strong per-frame upper bound; avoids reviewers dismissing B2 as a weak sparse baseline.
+
+B4   Frame-DenseMatch + KF                 Per-frame absolute pose, then standard Kalman filter or light temporal smoothing; no prior-constrained observation formation. Strongly recommended: answers whether “plain temporal smoothing is enough”. Often the most important external gap to fill.
+
+B5   ORB-SLAM3 (visual-only) — Failure reference   Relative VO only; no georeferenced satellite map. Not a fair absolute baseline, but shows the problem is not reducible to generic VO/SLAM: long range + degradation causes drift.
+
+B6   Track-Reanchor (ORB-SLAM3 + RoMa)    ORB-SLAM3 for short propagation; every K frames, RoMa re-anchor inside a fixed local satellite window; updates accepted after geometric verification. Strong “relative tracking + local re-anchoring” engineering baseline.
+
+B7   Track-Reanchor-Recover (ORB-SLAM3 + RoMa + AnyLoc)   B6 plus explicit global recovery: after repeated local re-anchor failures, trigger full-map retrieval then global recovery. Stronger “relative + local re-anchor + global recovery” route.
+
+2.2 Controlled counterpart (call it out explicitly; do not label as an external baseline)
+
+Temporal Texture-Only — Keep the full temporal recursion, candidate scheduling, and state update, but local observations may only come from texture / feature correspondences; no contour / boundary cue. This is the key fair comparison on the same scaffold: isolates whether gains come from the contour cue vs. the temporal framework alone. Name it clearly in the text as a controlled counterpart.
+
+2.3 Mechanism ablations (separate table)
+
+  • w/o contour: full method without contour / boundary cue.
+  • w/o prior-constrained observation formation: remove temporal prior on how local observations are formed; use fixed ROI or a wide search window instead.
+  • w/o gating / w/o verification: remove accept–reject updates or geometric consistency checks.
+  • Contour-Only: keep temporal framework; local observations only from the contour cue.
+
+-------------------------------------------------------------------------------
+3. Recommended paper organization
+-------------------------------------------------------------------------------
+Section / table          Suggested content
+-------------------------------------------------------------------------------
+Main results             Ours vs. B1–B7; primary columns e.g. CTLR@25m, MLE_valid, Drift Event Rate@50m, LCLR@25m. Mark B5 explicitly as failure reference.
+
+Controlled comparison    Small table: Ours vs. Temporal Texture-Only (main text or immediately after main table).
+
+Ablations                Internal mechanisms only; do not mix with external baselines.
+
+Curves / visualizations  At least one error vs. time or vs. along-track curve, especially over land → coast → water → coast → land transitions.
+
+Wording                  Do not describe the controlled counterpart as an “external method”; do not present the failure reference as a fair primary baseline. Clear taxonomy reduces reviewer pushback.
+
+Final recommendation: In the main paper keep at least B1–B7 and Ours; add a separate small table for Temporal Texture-Only. If “Frame-DenseMatch + KF” (B4-style) is missing, reviewers may ask whether gains are merely “stronger observations + ordinary filtering”.
