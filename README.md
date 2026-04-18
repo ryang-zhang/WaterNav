@@ -1,6 +1,6 @@
 # WaterNav
 
-**IMU-free UAV–satellite cross-view continuous localization over textureless water regions.**
+**UAV–satellite cross-view continuous localization over textureless water regions.**
 
 When a UAV flies over open water, traditional feature-matching breaks down due to the lack of visual texture. WaterNav addresses this with a **degradation-aware three-mode framework** that inserts a novel *shoreline contour SDF alignment* layer (Mode B) between feature matching (Mode A) and dead-reckoning propagation (Mode C). Partial water–land boundary geometry is exploited to maintain localization even when no visual features are available.
 
@@ -199,9 +199,9 @@ If you use WaterNav in your research, please cite:
 
 ```bibtex
 @misc{waternav2026,
-  title   = {WaterNav: IMU-free UAV--Satellite Cross-View Localization over Textureless Water},
+  title   = {WaterNav: UAV--Satellite Cross-View Localization over Textureless Water},
   year    = {2026},
-  note    = {\url{https://github.com/YOUR_USERNAME/WaterNav}}
+  note    = {\url{https://github.com/ryang-zhang/WaterNav}}
 }
 ```
 

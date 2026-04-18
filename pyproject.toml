@@ -5,7 +5,7 @@ build-backend = "setuptools.backends.legacy:build"
 [project]
 name = "waternav"
 version = "0.1.0"
-description = "IMU-free UAV–satellite cross-view localization over textureless water regions"
+description = "UAV–satellite cross-view localization over textureless water regions"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
@@ -34,8 +34,8 @@ sam2 = ["segment-anything-2"]
 dev = ["pytest>=7", "pytest-cov"]
 
 [project.urls]
-Homepage = "https://github.com/YOUR_USERNAME/WaterNav"
-Issues = "https://github.com/YOUR_USERNAME/WaterNav/issues"
+Homepage = "https://github.com/ryang-zhang/WaterNav"
+Issues = "https://github.com/ryang-zhang/WaterNav/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
