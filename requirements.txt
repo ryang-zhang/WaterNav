@@ -1,0 +1,15 @@
+# Core scientific stack
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+
+# Computer vision
+opencv-python>=4.8
+kornia>=0.7
+
+# Deep learning (CPU fallback; for CUDA see environment.yml)
+torch>=2.0
+torchvision>=0.15
+
+# Segmentation model
+segment-anything-2

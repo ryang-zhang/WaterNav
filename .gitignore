@@ -1,0 +1,43 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Data, results, and run artefacts (not version-controlled)
+data/
+experiments/
+debug_file/
+
+# Model weights
+*.ckpt
+*.pth
+*.pt
+*.onnx
+*.bin
+*.safetensors
+
+# Secrets and local config
+.env
+*.log
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+
+# Office documents (design docs, slides, etc.)
+*.docx
+*.xlsx
+*.pptx
+*.pdf
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb

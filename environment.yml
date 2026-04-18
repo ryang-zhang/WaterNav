@@ -1,0 +1,19 @@
+name: waternav
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - pytorch-cuda=11.8
+  - numpy
+  - scipy
+  - opencv
+  - matplotlib
+  - pip
+  - pip:
+    - kornia
+    - segment-anything-2

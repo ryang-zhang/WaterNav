@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "waternav"
+version = "0.1.0"
+description = "IMU-free UAV–satellite cross-view localization over textureless water regions"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+keywords = ["UAV", "localization", "satellite", "SDF", "ESKF", "water", "cross-view"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+    "opencv-python>=4.8",
+    "kornia>=0.7",
+    "torch>=2.0",
+    "torchvision>=0.15",
+]
+
+[project.optional-dependencies]
+sam2 = ["segment-anything-2"]
+dev = ["pytest>=7", "pytest-cov"]
+
+[project.urls]
+Homepage = "https://github.com/YOUR_USERNAME/WaterNav"
+Issues = "https://github.com/YOUR_USERNAME/WaterNav/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["waternav*"]
+
+[tool.pytest.ini_options]
+testpaths = ["scripts"]
+python_files = ["test_*.py"]
